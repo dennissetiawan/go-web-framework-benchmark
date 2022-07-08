@@ -1,0 +1,11 @@
+type Request {
+}
+
+type Response {
+	Message string `json:"message"`
+}
+
+service hello-api {
+	@handler HelloHandler
+	get /hello returns (Response)
+}
