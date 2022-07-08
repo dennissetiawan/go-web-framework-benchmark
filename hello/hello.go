@@ -1,4 +1,4 @@
-package main
+package hello
 
 import (
 	"flag"
@@ -7,6 +7,7 @@ import (
 	"github.com/dennissetiawan/go-web-framework-benchmark/hello/internal/config"
 	"github.com/dennissetiawan/go-web-framework-benchmark/hello/internal/handler"
 	"github.com/dennissetiawan/go-web-framework-benchmark/hello/internal/svc"
+	"github.com/dennissetiawan/go-web-framework-benchmark/hello/shared"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/rest"
@@ -14,7 +15,10 @@ import (
 
 var configFile = flag.String("f", "etc/hello-api.yaml", "the config file")
 
-func main() {
+func StartServer(port int, handlerParam shared.HandlerParam) {
+
+	shared.SharedHandlerParam = handlerParam
+
 	flag.Parse()
 
 	var c config.Config
@@ -26,6 +30,6 @@ func main() {
 	ctx := svc.NewServiceContext(c)
 	handler.RegisterHandlers(server, ctx)
 
-	fmt.Printf("Starting server at %s:%d...\n", c.Host, c.Port)
+	fmt.Printf("Starting server at %s:%d...\n", c.Host, port)
 	server.Start()
 }

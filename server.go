@@ -71,6 +71,9 @@ import (
 	gcontext "golang.org/x/net/context"
 	baa "gopkg.in/baa.v1"
 	lion "gopkg.in/celrenheit/lion.v1"
+
+	"github.com/dennissetiawan/go-web-framework-benchmark/hello"
+	zero_shared "github.com/dennissetiawan/go-web-framework-benchmark/hello/shared"
 )
 
 var (
@@ -223,6 +226,9 @@ func main() {
 		startWebgo()
 	case "goyave":
 		startGoyave()
+	case "go-zero":
+		startGozero()
+
 	default:
 		fmt.Println("--------------------------------------------------------------------")
 		fmt.Println("------------- Unknown framework given!!! Check libs.sh -------------")
@@ -652,6 +658,18 @@ func startGin() {
 	mux := gin.New()
 	mux.GET("/hello", ginHandler)
 	mux.Run(":" + strconv.Itoa(port))
+}
+
+// go-zero
+
+func startGozero() {
+	hello.StartServer(port, zero_shared.HandlerParam{
+		SleepTime:         sleepTime,
+		CpuBound:          cpuBound,
+		Target:            target,
+		SleepTimeDuration: sleepTimeDuration,
+	})
+
 }
 
 // gocraftWeb
