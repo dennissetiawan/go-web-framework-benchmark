@@ -226,7 +226,7 @@ func main() {
 		startWebgo()
 	case "goyave":
 		startGoyave()
-	case "go-zero":
+	case "gozero":
 		startGozero()
 
 	default:

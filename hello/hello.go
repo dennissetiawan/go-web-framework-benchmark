@@ -13,7 +13,7 @@ import (
 	"github.com/zeromicro/go-zero/rest"
 )
 
-var configFile = flag.String("f", "etc/hello-api.yaml", "the config file")
+var configFile = flag.String("f", "hello/etc/hello-api.yaml", "the config file")
 
 func StartServer(port int, handlerParam shared.HandlerParam) {
 
