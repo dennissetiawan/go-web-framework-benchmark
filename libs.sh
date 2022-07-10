@@ -7,5 +7,7 @@
 # "neo" "pat" "pure" "r2router" "tango" "tiger" "tinyrouter" "traffic" "violetear" "vulcan" "webgo")
 
 
-web_frameworks=( "gozero" "fasthttp" "fasthttp-routing" "fasthttp/router" "fasthttprouter" "fastrouter" "fiber" "gin" "gorilla" "gorouterfasthttp" )
+# web_frameworks=( "gozero" "fasthttp" "fasthttp-routing" "fasthttp/router" "fasthttprouter" "fastrouter" "fiber" "gin" "gorilla" "gorouterfasthttp" )
 
+
+web_frameworks=( "kratos-gin" "kratos-mux" "gozero" "fasthttp" "gin" "gorilla")

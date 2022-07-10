@@ -15,6 +15,7 @@ import (
 	"github.com/ant0ine/go-json-rest/rest"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/context"
+	"github.com/go-kratos/kratos/v2"
 
 	"github.com/bmizerany/pat"
 	"github.com/bnkamalesh/webgo/v5"
@@ -73,7 +74,8 @@ import (
 	lion "gopkg.in/celrenheit/lion.v1"
 
 	"github.com/dennissetiawan/go-web-framework-benchmark/hello"
-	zero_shared "github.com/dennissetiawan/go-web-framework-benchmark/hello/shared"
+
+	khttp "github.com/go-kratos/kratos/v2/transport/http"
 )
 
 var (
@@ -228,6 +230,10 @@ func main() {
 		startGoyave()
 	case "gozero":
 		startGozero()
+	case "kratos-gin":
+		startKratosGin()
+	case "kratos-mux":
+		startKratosMux()
 
 	default:
 		fmt.Println("--------------------------------------------------------------------")
@@ -670,6 +676,47 @@ func startGozero() {
 		SleepTimeDuration: sleepTimeDuration,
 	})
 
+//go-kratos
+
+//kratos-mux
+func startKratosMux() {
+	router := mux.NewRouter()
+	router.HandleFunc("/hello", helloHandler).Methods("GET")
+
+	httpSrv := khttp.NewServer(khttp.Address(":" + strconv.Itoa(port)))
+	httpSrv.HandlePrefix("/", router)
+
+	app := kratos.New(
+		kratos.Name("mux"),
+		kratos.Server(
+			httpSrv,
+		),
+	)
+
+	if err := app.Run(); err != nil {
+		log.Fatal(err)
+	}
+}
+
+//kratos-gin
+func startKratosGin() {
+	gin.SetMode(gin.ReleaseMode)
+	router := gin.New()
+	router.GET("/hello", ginHandler)
+
+	httpSrv := khttp.NewServer(khttp.Address(":" + strconv.Itoa(port)))
+	httpSrv.HandlePrefix("/", router)
+
+	app := kratos.New(
+		kratos.Name("gin"),
+		kratos.Server(
+			httpSrv,
+		),
+	)
+
+	if err := app.Run(); err != nil {
+		log.Fatal(err)
+	}
 }
 
 // gocraftWeb
