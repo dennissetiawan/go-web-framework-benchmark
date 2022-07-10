@@ -9,13 +9,13 @@ import (
 	"github.com/zeromicro/go-zero/rest"
 )
 
-func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
+func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext, goZeroExtraLogic func() ) {
 	server.AddRoutes(
 		[]rest.Route{
 			{
 				Method:  http.MethodGet,
 				Path:    "/hello",
-				Handler: HelloHandler(serverCtx),
+				Handler: HelloHandler(serverCtx,goZeroExtraLogic),
 			},
 		},
 	)

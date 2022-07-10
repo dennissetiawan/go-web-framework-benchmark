@@ -668,13 +668,21 @@ func startGin() {
 
 // go-zero
 
+func goZeroExtraLogic() {
+	if cpuBound {
+		pow(target)
+	} else {
+		if sleepTime > 0 {
+			time.Sleep(sleepTimeDuration)
+		} else {
+			runtime.Gosched()
+		}
+	}
+}
+
 func startGozero() {
-	hello.StartServer(port, zero_shared.HandlerParam{
-		SleepTime:         sleepTime,
-		CpuBound:          cpuBound,
-		Target:            target,
-		SleepTimeDuration: sleepTimeDuration,
-	})
+	hello.StartServer(port, goZeroExtraLogic)
+}
 
 //go-kratos
 

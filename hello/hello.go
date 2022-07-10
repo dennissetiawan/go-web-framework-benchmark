@@ -7,7 +7,6 @@ import (
 	"github.com/dennissetiawan/go-web-framework-benchmark/hello/internal/config"
 	"github.com/dennissetiawan/go-web-framework-benchmark/hello/internal/handler"
 	"github.com/dennissetiawan/go-web-framework-benchmark/hello/internal/svc"
-	"github.com/dennissetiawan/go-web-framework-benchmark/hello/shared"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/rest"
@@ -15,9 +14,9 @@ import (
 
 var configFile = flag.String("f", "hello/etc/hello-api.yaml", "the config file")
 
-func StartServer(port int, handlerParam shared.HandlerParam) {
+func StartServer(port int, goZeroExtraLogic func()) {
 
-	shared.SharedHandlerParam = handlerParam
+	// shared.SharedHandlerParam = handlerParam
 
 	flag.Parse()
 
@@ -28,7 +27,7 @@ func StartServer(port int, handlerParam shared.HandlerParam) {
 	defer server.Stop()
 
 	ctx := svc.NewServiceContext(c)
-	handler.RegisterHandlers(server, ctx)
+	handler.RegisterHandlers(server, ctx, goZeroExtraLogic)
 
 	fmt.Printf("Starting server at %s:%d...\n", c.Host, port)
 	server.Start()
