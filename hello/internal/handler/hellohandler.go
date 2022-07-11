@@ -14,8 +14,8 @@ func HelloHandler(svcCtx *svc.ServiceContext, goZeroExtraLogic func()) http.Hand
 	return func(w http.ResponseWriter, r *http.Request) {
 
 		l := logic.NewHelloLogic(r.Context(), svcCtx)
-		resp, err := l.Hello()
 		goZeroExtraLogic()
+		resp, err := l.Hello()
 		if err != nil {
 			httpx.Error(w, err)
 		} else {
