@@ -10,6 +10,7 @@ import (
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/rest"
+	"github.com/zeromicro/go-zero/rest/chain"
 )
 
 var configFile = flag.String("f", "hello/etc/hello-api.yaml", "the config file")
@@ -23,7 +24,7 @@ func StartServer(port int, goZeroExtraLogic func()) {
 	var c config.Config
 	conf.MustLoad(*configFile, &c)
 
-	server := rest.MustNewServer(c.RestConf)
+	server := rest.MustNewServer(c.RestConf, rest.WithChain(chain.New()))
 	defer server.Stop()
 
 	ctx := svc.NewServiceContext(c)
