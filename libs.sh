@@ -10,4 +10,4 @@
 # web_frameworks=( "gozero" "fasthttp" "fasthttp-routing" "fasthttp/router" "fasthttprouter" "fastrouter" "fiber" "gin" "gorilla" "gorouterfasthttp" )
 
 
-web_frameworks=( "kratos-gin" "kratos-mux" "gozero" "fasthttp" "gin" "gorilla")
+web_frameworks=( "gozero" "fasthttp" "gin" "gorilla")
